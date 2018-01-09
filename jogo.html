@@ -35,11 +35,70 @@
                             $(this).text("X");
                         }
                         
+                        if (VerifyWinner() == true) {
+                            counterClicks = 9;
+                        }
+                        
                         if (counterClicks == 9) {
                             $("#msg").text("Jogo Encerrado");    
                         }
                     }
                 });
+            }
+            
+            function VerifyWinner() {
+                var winner = [
+                    //Linhas
+                    [0,1,2],
+                    [3,4,5],
+                    [6,7,8],
+                    //Colunas
+                    [0,3,6],
+                    [1,4,7],
+                    [2,5,8],
+                    //Diagonais
+                    [0,4,8],
+                    [6,4,2]
+                ]
+                
+                //var cells = document.querySelectorAll("table td");
+                
+                var X = new Array(9);
+                var O = new Array(9);
+                
+                $("table td").each(function(key, value) {
+                    //alert(key + "-" + value);
+                    if ($(this).text() == "X") {
+                        X[key] = key;
+                    }
+                    if ($(this).text() == "O") {
+                        O[key] = key;
+                    }
+                });
+                
+                for (var i=0; i<winner.length; i++) {
+                    counterx = 0;
+                    countero = 0;
+                
+                    for (var j=0; j<winner[i].length; j++) {
+                        if (X[winner[i][j]] == winner[i][j]) {
+                            counterx++;    
+                        }
+                        if (O[winner[i][j]] == winner[i][j]) {
+                            countero++;    
+                        }
+                    }
+                   
+                    if (counterx == 3) {
+                        alert("X ganhou");
+                        return true;
+                    }
+                    
+                    if (countero == 3) {
+                        alert("O ganhou");
+                        return true;
+                    }
+                }
             }
         </script>
     </head>
