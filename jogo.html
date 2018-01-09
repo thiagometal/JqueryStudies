@@ -76,6 +76,10 @@
                     }
                 });
                 
+                return DefineWinner(X,O,winner);
+            }
+            
+            function DefineWinner(X, O, winner) {
                 for (var i=0; i<winner.length; i++) {
                     counterx = 0;
                     countero = 0;
