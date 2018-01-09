@@ -1,0 +1,24 @@
+<!DOCTYPE>
+<html>
+    <head> 
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"> </script>
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+//                $("span").click(function() {
+//                    alert(document.querySelector("span"));
+//                    $("body").css("background-color", "green");
+//                    $("body").css({"margin":"0px", "color":"white"});
+//                });
+//                alert(document.querySelector("span"));
+                
+                $("span").click(function(){
+                    $("span").animate({fontSize: "128px", marginLeft: "128px"}, 5000);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <span>Oi Mundo!</span>
+    </body>
+</html>
