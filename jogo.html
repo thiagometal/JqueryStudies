@@ -2,42 +2,46 @@
 <html lang="pt-BR">
     <head>
         <title>Jogo da Velha </title>
-        <style type="text/css">
-            body {
-                font-family:sans-serif;
+        
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                //Validação do preenchimento
+                $("#btn_start").click(function(){
+                    var nameGamer1 = $("input[name=jogador1]").val();
+                    var nameGamer2 = $("input[name=jogador2]").val();
+                    
+                    if (nameGamer1.trim().length > 0 && nameGamer2.trim().length > 0) {
+                        BeginGame();
+                    } else {
+                        alert("Input the Names Gamers, Pleasure!");
+                    }
+                });
+            });
+            
+            function BeginGame() {
+                var counterClicks = 0;
+                
+                $("table td").click(function(){
+                    counterClicks++;
+                    
+                    if (counterClicks <= 9) {
+                        if (counterClicks % 2 == 0) {
+                            $(this).text("O");
+                        } else {
+                            $(this).text("X");
+                        }
+                        
+                        if (counterClicks == 9) {
+                            $("#msg").text("Jogo Encerrado");    
+                        }
+                    }
+                });
             }
-            table {
-                width:500px;
-                margin:auto;
-                border:1px solid black;
-                border-collapse: collapse;
-            }
-            table td {
-                border: 1px solid black;
-                height: 166px;
-                text-align: center;
-                font-size:96px;
-            }
-            .configurador{
-                text-align: center;
-                border: none;
-                margin-bottom: 10px;
-            }
-            .configurador input {
-                padding: 10px;
-            }
-            .configurador span{
-                background-color: lightgray;
-                padding:9px 15px 11.5px 15px;
-                vertical-align: baseline;
-                border:1px solid gray;
-            }
-            .configurador button {
-                padding:7px 15px;
-                background-color: lightgray;
-                border: 1px solid gray;
-            }
-        </style>
+        </script>
     </head>
     
     <body>
@@ -45,12 +49,13 @@
             <span>X</span><input type="text" name="jogador1" placeholder="Nome Jogador 1">
             
              x
-            <input type="text" name="jogador1" placeholder="Nome Jogador 2"><span>O</span>
+            <input type="text" name="jogador2" placeholder="Nome Jogador 2"><span>O</span>
             
             <br />
             <br />
             
-            <button>Start</button>
+            <button id="btn_start">Start</button>
+            <div id="msg"></div>
         </div>
         <table>
             <tr>
