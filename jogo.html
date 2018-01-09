@@ -16,8 +16,9 @@
                     
                     if (nameGamer1.trim().length > 0 && nameGamer2.trim().length > 0) {
                         BeginGame();
+                        $(".msg").text("");
                     } else {
-                        alert("Input the Names Gamers, Pleasure!");
+                        $(".msg").text("Input Gamers Names, pleasure!");
                     }
                 });
             });
@@ -40,7 +41,7 @@
                         }
                         
                         if (counterClicks == 9) {
-                            $("#msg").text("Jogo Encerrado");    
+                            $(".msg").append("<br />Jogo Encerrado");    
                         }
                     }
                 });
@@ -79,7 +80,10 @@
                 return DefineWinner(X,O,winner);
             }
             
-            function DefineWinner(X, O, winner) {
+            function DefineWinner(X, O, winner) {                
+                var nameGamer1 = $("input[name=jogador1]").val();
+                var nameGamer2 = $("input[name=jogador2]").val();
+                
                 for (var i=0; i<winner.length; i++) {
                     counterx = 0;
                     countero = 0;
@@ -94,12 +98,12 @@
                     }
                    
                     if (counterx == 3) {
-                        alert("X ganhou");
+                        $(".msg").text("X - " + nameGamer1 + " Ganhou");
                         return true;
                     }
                     
                     if (countero == 3) {
-                        alert("O ganhou");
+                        $(".msg").text("O - " + nameGamer1 + " Ganhou");
                         return true;
                     }
                 }
@@ -109,6 +113,9 @@
     
     <body>
         <div class="configurador">
+            <div class="msg">
+                
+            </div>
             <span>X</span><input type="text" name="jogador1" placeholder="Nome Jogador 1">
             
              x
@@ -118,7 +125,7 @@
             <br />
             
             <button id="btn_start">Start</button>
-            <div id="msg"></div>
+            <br />
         </div>
         <table>
             <tr>
