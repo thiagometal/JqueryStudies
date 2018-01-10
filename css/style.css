@@ -1,7 +1,7 @@
 body {
     font-family:sans-serif;
 }
-table, .configurador{
+table, .configurador, #time{
     width:500px;
     margin:auto;
     border:1px solid black;
@@ -15,7 +15,7 @@ table td {
     font-size:96px;
 }
 
-.configurador {
+.configurador, #time {
     text-align: center;
     border: none;
     margin-bottom: 10px;
@@ -44,3 +44,4 @@ table td {
     border: 1px solid lightgray;
     color:gray
 }
+
