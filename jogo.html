@@ -1,0 +1,186 @@
+<!DOCTYPE>
+<html lang="pt-BR">
+    <head>
+        <title>Jogo da Velha </title>
+        
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        
+        <script type="text/javascript">
+            var interval =  null;
+            
+            $(document).ready(function(){
+                //Validação do preenchimento
+                $("#btn_start").click(function(){
+                    var nameGamer1 = $("input[name=jogador1]").val();
+                    var nameGamer2 = $("input[name=jogador2]").val();
+                    
+                    if (nameGamer1.trim().length > 0 && nameGamer2.trim().length > 0) {
+                        BeginGame();
+                        $(".msg").text("");
+                    } else {
+                        $(".msg").text("Input Gamers Names, pleasure!");
+                    }
+                });
+            });
+            
+            function BeginGame() {
+                var counterClicks = 0;
+                
+                var interval = setInterval(PastTime, 500);
+                
+                $("table td").click(function(){
+                    counterClicks++;
+                    
+                    if (counterClicks <= 9) {
+                        if (counterClicks % 2 == 0) {
+                            $(this).text("O");
+                        } else {
+                            $(this).text("X");
+                        }
+                        
+                        if (VerifyWinner() == true) {
+                            counterClicks = 9;
+                        }
+                        
+                        if (counterClicks == 9) {
+                            $(".msg").append("<br />Jogo Encerrado"); 
+                            clearInterval(interval);
+                        }
+                    }
+                });
+            }
+            
+            function VerifyWinner() {
+                var winner = [
+                    //Linhas
+                    [0,1,2],
+                    [3,4,5],
+                    [6,7,8],
+                    //Colunas
+                    [0,3,6],
+                    [1,4,7],
+                    [2,5,8],
+                    //Diagonais
+                    [0,4,8],
+                    [6,4,2]
+                ]
+                
+                //var cells = document.querySelectorAll("table td");
+                
+                var X = new Array(9);
+                var O = new Array(9);
+                
+                $("table td").each(function(key, value) {
+                    //alert(key + "-" + value);
+                    if ($(this).text() == "X") {
+                        X[key] = key;
+                    }
+                    if ($(this).text() == "O") {
+                        O[key] = key;
+                    }
+                });
+                
+                return DefineWinner(X,O,winner);
+            }
+            
+            function DefineWinner(X, O, winner) {                
+                var nameGamer1 = $("input[name=jogador1]").val();
+                var nameGamer2 = $("input[name=jogador2]").val();
+                
+                for (var i=0; i<winner.length; i++) {
+                    counterx = 0;
+                    countero = 0;
+                
+                    for (var j=0; j<winner[i].length; j++) {
+                        if (X[winner[i][j]] == winner[i][j]) {
+                            counterx++;    
+                        }
+                        if (O[winner[i][j]] == winner[i][j]) {
+                            countero++;    
+                        }
+                    }
+                   
+                    if (counterx == 3) {
+                        $(".msg").text("X - " + nameGamer1 + " Ganhou");
+                        return true;
+                    }
+                    
+                    if (countero == 3) {
+                        $(".msg").text("O - " + nameGamer1 + " Ganhou");
+                        return true;
+                    }
+                }
+            }
+            
+            var inicioJogo = null;
+            function PastTime() {
+                if (inicioJogo == null) {
+                    inicioJogo = new Date();
+                }
+                
+                var dataAtual = new Date();
+                
+                var segIni = inicioJogo.getSeconds(); 
+                var segAtual = dataAtual.getSeconds();
+                
+                var minIni = inicioJogo.getMinutes(); 
+                var minAtual = dataAtual.getMinutes();
+                
+                var horaIni = inicioJogo.getHours(); 
+                var horaAtual = dataAtual.getHours();
+                
+                var timeIni = inicioJogo.getTime(); 
+                var timeAtual = dataAtual.getTime();
+                
+                var timeDec = timeAtual - timeIni;
+                
+                var novaData = new Date(timeDec);
+                
+                $("#time").text("Início do Jogo: " + horaIni + ":" + minIni + ":" + segIni 
+                                + " - " 
+                                + "Hora Atual: " + horaAtual + ":" + minAtual + ":" + segAtual
+                                + " - "
+                                + "Tempo Decorrido: " + novaData.getMinutes() + ":" + novaData.getSeconds());
+                
+            }
+        </script>
+    </head>
+    
+    <body>
+        <div class="configurador">
+            <div class="msg">
+                
+            </div>
+            <span>X</span><input type="text" name="jogador1" placeholder="Nome Jogador 1">
+            
+             x
+            <input type="text" name="jogador2" placeholder="Nome Jogador 2"><span>O</span>
+            
+            <br />
+            <br />
+            
+            <button id="btn_start">Start</button>
+            <br />
+        </div>
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div id="time">10:00</div>
+    </body>
+</html>
